@@ -274,6 +274,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={companyNameChangeHandler}
             value={interviewDetails.companyName}
+            autoComplete="off"
           />
         </div>
 
@@ -286,6 +287,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={candidateNameChangeHandler}
             value={interviewDetails.candidateName}
+            autoComplete="off"
           />
         </div>
 
@@ -298,6 +300,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={candidateNumberChangeHandler}
             value={interviewDetails.candidateNumber}
+            autoComplete="off"
           />
         </div>
 
@@ -310,6 +313,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={currentCompanyNameChangeHandler}
             value={interviewDetails.currentCompany}
+            autoComplete="off"
           />
         </div>
 
@@ -322,6 +326,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={noticePeriodChangeHandler}
             value={interviewDetails.noticePeriod}
+            autoComplete="off"
           />
         </div>
 
@@ -334,6 +339,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={currentLocationNameChangeHandler}
             value={interviewDetails.currentLocation}
+            autoComplete="off"
           />
         </div>
 
@@ -346,6 +352,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={currentCTCChangeHandler}
             value={interviewDetails.currentCTC}
+            autoComplete="off"
           />
         </div>
 
@@ -358,6 +365,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={expectedCTCChangeHandler}
             value={interviewDetails.expectedCTC}
+            autoComplete="off"
           />
         </div>
 
@@ -370,6 +378,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={offeredCTCChangeHandler}
             value={interviewDetails.offeredCTC}
+            autoComplete="off"
           />
         </div>
 
@@ -382,6 +391,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={roleChangeHandler}
             value={interviewDetails.role}
+            autoComplete="off"
           />
         </div>
 
@@ -395,6 +405,7 @@ const InterviewForm = () => {
               style={{ width: "172px", marginRight: "5px" }}
               onChange={totalYOEChangeHandler}
               value={interviewDetails.totalYOE}
+              autoComplete="off"
             />
 
             <TextField
@@ -404,6 +415,7 @@ const InterviewForm = () => {
               style={{ width: "172px" }}
               onChange={totalMOEChangeHandler}
               value={interviewDetails.totalMOE}
+              autoComplete="off"
             />
           </div>
         </div>
@@ -418,6 +430,7 @@ const InterviewForm = () => {
               style={{ width: "172px", marginRight: "5px" }}
               onChange={relevantYOEChangeHandler}
               value={interviewDetails.relevantYOE}
+              autoComplete="off"
             />
 
             <TextField
@@ -427,6 +440,7 @@ const InterviewForm = () => {
               style={{ width: "172px" }}
               onChange={relevantMOEChangeHandler}
               value={interviewDetails.relevantMOE}
+              autoComplete="off"
             />
           </div>
         </div>
@@ -440,6 +454,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={NORChangeHandler}
             value={interviewDetails.numberOfRounds}
+            autoComplete="off"
           />
         </div>
 
@@ -456,6 +471,7 @@ const InterviewForm = () => {
             style={{ width: "340px" }}
             onChange={interviewDateChangeHandler}
             value={interviewDetails.interviewDate}
+            autoComplete="off"
           />
         </div>
 
@@ -475,6 +491,7 @@ const InterviewForm = () => {
             style={{ width: "340px" }}
             onChange={interviewTimeChangeHandler}
             value={interviewDetails.interviewTime}
+            autoComplete="off"
           />
         </div>
 
@@ -487,6 +504,7 @@ const InterviewForm = () => {
             style={{ width: "350px" }}
             onChange={agentNameChangeHandler}
             value={interviewDetails.agentName}
+            autoComplete="off"
           />
         </div>
 

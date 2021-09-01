@@ -1,7 +1,7 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import { auth } from "./firebase";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Header from "./component/Header";
 import FormPage from "./pages/FormPage";
 import HomePage from "./pages/HomePage";
