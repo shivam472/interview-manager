@@ -1,15 +1,8 @@
 import classes from "./InterviewForm.module.css";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
-import {
-  useState,
-  useReducer,
-  useCallback,
-  useEffect,
-  useContext,
-} from "react";
+import { useState, useReducer, useCallback, useEffect } from "react";
 import { db } from "../firebase";
-import CountContext from "./context/count-context";
 
 const initialDetails = {
   companyName: "",
@@ -91,8 +84,6 @@ const detailsReducer = (state, action) => {
 };
 
 const InterviewForm = () => {
-  const countCtx = useContext(CountContext);
-
   const [formIsNotFilled, setFormIsNotFilled] = useState(true);
 
   const [interviewDetails, detailsDispatch] = useReducer(
@@ -158,15 +149,6 @@ const InterviewForm = () => {
     checkValidity();
   }, [checkValidity]);
 
-  const increaseInterviewCount = async () => {
-    await db
-      .collection("interviewCounter")
-      .doc("counter")
-      .set({ count: countCtx.count + 1 })
-      .then(() => console.log("New interview added"))
-      .catch((err) => console.log(err));
-  };
-
   const addInterviewHanlder = (e) => {
     e.preventDefault();
 
@@ -206,8 +188,6 @@ const InterviewForm = () => {
           "document successfully written with document id: " + docRef.id
         );
         detailsDispatch({ type: "INITIAL" });
-        countCtx.increaseCount();
-        increaseInterviewCount();
       })
       .catch((err) => console.log(err));
   };

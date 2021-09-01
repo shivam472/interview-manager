@@ -29,11 +29,6 @@
   color: #292929;
 }
 
-/* .home-container li:hover {
-  background-color: #f5f5f5;
-  box-shadow: 2px 4px 5px #d4d4d4;
-} */
-
 .isClicked {
   background-color: #e7e6e6;
   box-shadow: 2px 4px 5px #d4d4d4;
@@ -45,7 +40,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #faf9f6;
+  background-color: #e4e3e3;
   padding: 10px;
   overflow-y: scroll;
 }

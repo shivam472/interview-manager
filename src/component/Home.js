@@ -1,14 +1,8 @@
 import classes from "./Home.module.css";
-import {
-  useReducer,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useReducer, useState, useEffect, useCallback } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import CountContext from "./context/count-context";
+import InterviewContent from "./InterviewContent";
 
 const initialState = {
   isClickedFirst: true,
@@ -41,26 +35,15 @@ const Home = () => {
 
   const [allInterviews, setAllInterviews] = useState([]);
 
-  const [noOfInterviewsCount, setNoOfInterviewsCount] = useState([
-    { count: 0 },
-  ]);
-
   const updateInterviewsHandler = useCallback(() => {
     db.collection("interviews").onSnapshot((snapshot) => {
       setAllInterviews(snapshot.docs.map((doc) => doc.data()));
     });
   }, []);
 
-  const updateInterviewCountHandler = useCallback(() => {
-    db.collection("interviewCounter").onSnapshot((snapshot) => {
-      setNoOfInterviewsCount(snapshot.docs.map((doc) => doc.data()));
-    });
-  }, []);
-
   useEffect(() => {
     updateInterviewsHandler();
-    updateInterviewCountHandler();
-  }, [updateInterviewsHandler, updateInterviewCountHandler]);
+  }, [updateInterviewsHandler]);
 
   const isClickedFirstStyle = clickedState.isClickedFirst ? (
     <li
@@ -99,232 +82,60 @@ const Home = () => {
 
   const interviewClassName = "interview-container";
 
-  const allInterviewsContent = allInterviews.map(
-    (
-      {
-        Company_Name,
-        Candidate_Name,
-        Candidate_Number,
-        Current_Company,
-        Notice_Period,
-        Current_Location,
-        Current_CTC,
-        Expected_CTC,
-        Offered_CTC,
-        Total_Experience,
-        Relevant_Experience,
-        Interview_Date,
-        Interview_Time,
-        Role,
-        Number_Of_Rounds,
-        Agent_Name,
-      },
-      index
-    ) => (
-      <div key={index} className={classes[`${interviewClassName}`]}>
-        <h2>{Company_Name}</h2>
-        <p>
-          Candidate Name: <strong>{Candidate_Name}</strong>{" "}
-        </p>
-        <p>
-          Candidate's Number <strong>{Candidate_Number}</strong>
-        </p>
-        <p>
-          Current Company: <strong>{Current_Company}</strong>
-        </p>
-        <p>
-          Notice Period: <strong>{Notice_Period}</strong>
-        </p>
-        <p>
-          Current Location: <strong>{Current_Location}</strong>
-        </p>
-        <p>
-          Current CTC: <strong>{Current_CTC}</strong>
-        </p>
-        <p>
-          Expected CTC: <strong>{Expected_CTC}</strong>
-        </p>
-        <p>
-          Offered CTC: <strong>{Offered_CTC}</strong>
-        </p>
-        <p>
-          Total Experience: <strong>{Total_Experience}</strong>
-        </p>
-        <p>
-          Relevant Experience: <strong>{Relevant_Experience}</strong>
-        </p>
-        <p>
-          Interview Date: <strong>{Interview_Date}</strong>
-        </p>
-        <p>
-          Interview Time: <strong>{Interview_Time}</strong>
-        </p>
-        <p>
-          Number Of Rounds: <strong>{Number_Of_Rounds}</strong>
-        </p>
-        <p>
-          Role: <strong>{Role}</strong>
-        </p>
-        <p>
-          Agent Name: <strong>{Agent_Name}</strong>
-        </p>
-      </div>
-    )
-  );
+  const allInterviewsContent = allInterviews.map((interview, index) => (
+    <div key={index} className={classes[`${interviewClassName}`]}>
+      <InterviewContent interviewObj={interview} />
+    </div>
+  ));
 
-  const upcomingInterviewsContent = allInterviews.map(
-    (
-      {
-        Company_Name,
-        Candidate_Name,
-        Candidate_Number,
-        Current_Company,
-        Notice_Period,
-        Current_Location,
-        Current_CTC,
-        Expected_CTC,
-        Offered_CTC,
-        Total_Experience,
-        Relevant_Experience,
-        Interview_Date,
-        Interview_Time,
-        Role,
-        Number_Of_Rounds,
-        Agent_Name,
-      },
-      index
-    ) => (
-      <div key={index} className={classes[`${interviewClassName}`]}>
-        {new Date(Interview_Date + " " + Interview_Time) > new Date() && (
-          <>
-            <h2>{Company_Name}</h2>
-            <p>
-              Candidate Name: <strong>{Candidate_Name}</strong>{" "}
-            </p>
-            <p>
-              Candidate's Number <strong>{Candidate_Number}</strong>
-            </p>
-            <p>
-              Current Company: <strong>{Current_Company}</strong>
-            </p>
-            <p>
-              Notice Period: <strong>{Notice_Period}</strong>
-            </p>
-            <p>
-              Current Location: <strong>{Current_Location}</strong>
-            </p>
-            <p>
-              Current CTC: <strong>{Current_CTC}</strong>
-            </p>
-            <p>
-              Expected CTC: <strong>{Expected_CTC}</strong>
-            </p>
-            <p>
-              Offered CTC: <strong>{Offered_CTC}</strong>
-            </p>
-            <p>
-              Total Experience: <strong>{Total_Experience}</strong>
-            </p>
-            <p>
-              Relevant Experience: <strong>{Relevant_Experience}</strong>
-            </p>
-            <p>
-              Interview Date: <strong>{Interview_Date}</strong>
-            </p>
-            <p>
-              Interview Time: <strong>{Interview_Time}</strong>
-            </p>
-            <p>
-              Number Of Rounds: <strong>{Number_Of_Rounds}</strong>
-            </p>
-            <p>
-              Role: <strong>{Role}</strong>
-            </p>
-            <p>
-              Agent Name: <strong>{Agent_Name}</strong>
-            </p>
-          </>
-        )}
-      </div>
-    )
-  );
+  const upcomingInterviewsContent = allInterviews.map((interview, index) => (
+    <>
+      {new Date(interview.Interview_Date + " " + interview.Interview_Time) >
+        new Date() && (
+        <div key={index} className={classes[`${interviewClassName}`]}>
+          <InterviewContent interviewObj={interview} />
+        </div>
+      )}
+    </>
+  ));
 
-  const pastInterviewsContent = allInterviews.map(
-    (
-      {
-        Company_Name,
-        Candidate_Name,
-        Candidate_Number,
-        Current_Company,
-        Notice_Period,
-        Current_Location,
-        Current_CTC,
-        Expected_CTC,
-        Offered_CTC,
-        Total_Experience,
-        Relevant_Experience,
-        Interview_Date,
-        Interview_Time,
-        Role,
-        Number_Of_Rounds,
-        Agent_Name,
-      },
-      index
-    ) => (
-      <div key={index} className={classes[`${interviewClassName}`]}>
-        {new Date(Interview_Date + " " + Interview_Time) < new Date() && (
-          <>
-            <h2>{Company_Name}</h2>
-            <p>
-              Candidate Name: <strong>{Candidate_Name}</strong>{" "}
-            </p>
-            <p>
-              Candidate's Number <strong>{Candidate_Number}</strong>
-            </p>
-            <p>
-              Current Company: <strong>{Current_Company}</strong>
-            </p>
-            <p>
-              Notice Period: <strong>{Notice_Period}</strong>
-            </p>
-            <p>
-              Current Location: <strong>{Current_Location}</strong>
-            </p>
-            <p>
-              Current CTC: <strong>{Current_CTC}</strong>
-            </p>
-            <p>
-              Expected CTC: <strong>{Expected_CTC}</strong>
-            </p>
-            <p>
-              Offered CTC: <strong>{Offered_CTC}</strong>
-            </p>
-            <p>
-              Total Experience: <strong>{Total_Experience}</strong>
-            </p>
-            <p>
-              Relevant Experience: <strong>{Relevant_Experience}</strong>
-            </p>
-            <p>
-              Interview Date: <strong>{Interview_Date}</strong>
-            </p>
-            <p>
-              Interview Time: <strong>{Interview_Time}</strong>
-            </p>
-            <p>
-              Number Of Rounds: <strong>{Number_Of_Rounds}</strong>
-            </p>
-            <p>
-              Role: <strong>{Role}</strong>
-            </p>
-            <p>
-              Agent Name: <strong>{Agent_Name}</strong>
-            </p>
-          </>
-        )}
-      </div>
-    )
-  );
+  const pastInterviewsContent = allInterviews.map((interview, index) => (
+    <>
+      {new Date(interview.Interview_Date + " " + interview.Interview_Time) <
+        new Date() && (
+        <div key={index} className={classes[`${interviewClassName}`]}>
+          <InterviewContent interviewObj={interview} />
+        </div>
+      )}
+    </>
+  ));
+
+  const allInterviewsArr = allInterviews.map((interview) => {
+    if (interview) {
+      return interview;
+    }
+    return null;
+  });
+
+  const upcomingInterviewsArr = allInterviews.filter((interview) => {
+    if (
+      new Date(interview.Interview_Date + " " + interview.Interview_Time) >
+      new Date()
+    ) {
+      return interview;
+    }
+    return null;
+  });
+
+  const pastInterviewsArr = allInterviews.filter((interview) => {
+    if (
+      new Date(interview.Interview_Date + " " + interview.Interview_Time) <
+      new Date()
+    ) {
+      return interview;
+    }
+    return null;
+  });
 
   return (
     <div className={classes["home-container"]}>
@@ -343,21 +154,60 @@ const Home = () => {
           <h2>Sign In to see your Interviews</h2>
         </section>
       )}
-      {user && noOfInterviewsCount[0].count > 0 && (
-        <section
-          className={`${classes["interview-section"]} ${classes["with-login"]}`}
-        >
-          {clickedState.isClickedFirst && upcomingInterviewsContent}
-          {clickedState.isClickedThird && allInterviewsContent}
-          {clickedState.isClickedThird && pastInterviewsContent}
-        </section>
-      )}
 
-      {user && noOfInterviewsCount[0].count === 0 && (
+      {user && allInterviewsArr.length === 0 && (
         <section
           className={`${classes["interview-section"]} ${classes["without-login"]}`}
         >
           <h2>You have not added any interviews</h2>
+        </section>
+      )}
+
+      {user &&
+        clickedState.isClickedFirst &&
+        upcomingInterviewsArr.length !== 0 && (
+          <section
+            className={`${classes["interview-section"]} ${classes["with-login"]}`}
+          >
+            {upcomingInterviewsContent}
+          </section>
+        )}
+      {user &&
+        clickedState.isClickedFirst &&
+        upcomingInterviewsArr.length === 0 &&
+        allInterviewsArr.length > 0 && (
+          <section
+            className={`${classes["interview-section"]} ${classes["without-login"]}`}
+          >
+            <h2>You have no Upcoming Interviews</h2>
+          </section>
+        )}
+
+      {user &&
+        clickedState.isClickedSecond &&
+        pastInterviewsArr.length !== 0 && (
+          <section
+            className={`${classes["interview-section"]} ${classes["with-login"]}`}
+          >
+            {pastInterviewsContent}
+          </section>
+        )}
+      {user &&
+        clickedState.isClickedSecond &&
+        pastInterviewsArr.length === 0 &&
+        allInterviewsArr.length > 0 && (
+          <section
+            className={`${classes["interview-section"]} ${classes["without-login"]}`}
+          >
+            <h2>You have no Past Interviews</h2>
+          </section>
+        )}
+
+      {user && clickedState.isClickedThird && (
+        <section
+          className={`${classes["interview-section"]} ${classes["with-login"]}`}
+        >
+          {allInterviewsContent}
         </section>
       )}
     </div>
