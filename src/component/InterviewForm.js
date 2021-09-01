@@ -184,9 +184,9 @@ const InterviewForm = () => {
     db.collection("interviews")
       .add(docData)
       .then((docRef) => {
-        console.log(
-          "document successfully written with document id: " + docRef.id
-        );
+        // console.log(
+        //   "document successfully written with document id: " + docRef.id
+        // );
         detailsDispatch({ type: "INITIAL" });
       })
       .catch((err) => console.log(err));

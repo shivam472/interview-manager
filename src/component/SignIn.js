@@ -15,9 +15,6 @@ const SignIn = () => {
         const token = credential.accessToken;
 
         const user = result.user;
-
-        console.log(token);
-        console.log(user);
       })
       .catch((error) => {
         console.log(error);
